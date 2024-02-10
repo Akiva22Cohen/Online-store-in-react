@@ -1,20 +1,21 @@
-import React, { useContext } from 'react';
-import GlobalContext from './GlobalContext';
-import CartCard from './cartCard';
+import { useContext } from "react";
+import GlobalContextData from "./GlobalContextData";
+import CartCard from "./CartCard";
 
 function Cart() {
-    const { shopCart } = useContext(GlobalContext);
+    const { shopCart } = useContext(GlobalContextData);
 
     return (
-        <div className='text-bg-success rounded m-1'>
-            <h2 className='text-center'>Shopping Cart</h2>
-            <div className='d-flex flex-wrap row-cols-md-6 row-cols-sm-5 justify-content-center align-content-center'>
+        <div
+            className="overflow-auto"
+            style={{ maxHeight: '70vh' }}
+        >
+            <h2 className="text-center">Shopping Cart</h2>
+            <div
+                className='d-flex flex-wrap row-cols-md-4 row-cols-sm-3 justify-content-center'
+            >
                 {
-                    shopCart.map(e => <CartCard key={e.id}>{e}</CartCard>)
-                }
-                {
-                    (!shopCart.length > 0) &&
-                    <h6>There are no products in the shopping cart...</h6>
+                    shopCart.map(item => <CartCard key={item.id} {...item} />)
                 }
             </div>
         </div>
