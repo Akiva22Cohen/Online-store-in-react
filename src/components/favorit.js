@@ -11,6 +11,12 @@ function Favorit() {
             style={{ maxHeight: '70vh' }}
         >
             <h2 className="text-center">Favorites</h2>
+            {
+                (!shopFavor.length > 0) &&
+                <p className="fs-3">
+                    You don't seem to have any favorites!
+                </p>
+            }
             <div
                 className='d-flex flex-wrap row-cols-md-4 row-cols-sm-3 justify-content-center'
             >
