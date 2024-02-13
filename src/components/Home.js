@@ -23,19 +23,9 @@ function Home() {
                 </div>
                 <div className="carousel-inner w-100 h-100 rounded shadow border">
                     {
-                        arrAll[0] &&
-                        <div className="carousel-item active w-100 h-100">
-                            <img src={arrAll[0].thumbnail} className="d-block w-100 h-100" alt={arrAll[0].title} />
-                            <div className="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded shadow p-1">
-                                <h5>{arrAll[0].title}</h5>
-                                <p>{arrAll[0].description}</p>
-                            </div>
-                        </div>
-                    }
-                    {
-                        arrAll.slice(1, arrAll.length - 1).map(({ thumbnail, title, description }, i) => {
+                        arrAll.slice(0, arrAll.length - 1).map(({ thumbnail, title, description }, i) => {
                             return (
-                                <div key={i} className="carousel-item w-100 h-100">
+                                <div key={i} className={`carousel-item w-100 h-100 ${i == 0 && 'active'}`}>
                                     <img src={thumbnail} className="d-block w-100 h-100" alt={arrAll[0].title} />
                                     <div className="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded shadow p-1">
                                         <h5>{title}</h5>
