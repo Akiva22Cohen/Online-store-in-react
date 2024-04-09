@@ -51,28 +51,32 @@ function Product(props) {
                 id={`carouselExampleAutoplaying${id}`} className="carousel slide" data-bs-ride="carousel"
             >
                 <div className="carousel-indicators">
-                    <button type="button" data-bs-target={`#carouselExampleAutoplaying${id}`} data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button
+                        type="button"
+                        data-bs-target={`#carouselExampleAutoplaying${id}`}
+                        data-bs-slide-to="0"
+                        className="active"
+                        aria-current="true"
+                        aria-label="Slide 1"
+                    ></button>
                     {
                         images.slice(1, images.length - 1).map((item, i) => {
                             return (
-                                <button key={i} type="button" data-bs-target={`#carouselExampleAutoplaying${id}`} data-bs-slide-to={i + 1} className="" aria-label={`Slide ${i + 2}`}></button>
+                                <button
+                                    key={i}
+                                    type="button"
+                                    data-bs-target={`#carouselExampleAutoplaying${id}`} data-bs-slide-to={i + 1}
+                                    aria-label={`Slide ${i + 2}`}
+                                ></button>
                             )
                         })
                     }
                 </div>
                 <div className="carousel-inner">
                     {
-                        images[0] &&
-                        <div className="carousel-item active">
-                            <Link to={`/Product/${id}`}>
-                                <img src={images[0]} className="d-block card-img-top" alt={title} />
-                            </Link>
-                        </div>
-                    }
-                    {
-                        images.slice(1, images.length - 1).map((url, i) => {
+                        images.slice(0, images.length - 1).map((url, i) => {
                             return (
-                                <div key={i} className="carousel-item">
+                                <div key={i} className={`carousel-item ${i === 0 && 'active'}`}>
                                     <Link to={`/Product/${id}`}>
                                         <img src={url} className="d-block card-img-top" alt={title} />
                                     </Link>

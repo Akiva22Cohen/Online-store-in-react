@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import GlobalContextData from "./GlobalContextData";
+import products from '../products.json';
 
 import { FaHeart } from "react-icons/fa";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
@@ -11,7 +12,7 @@ import { TbArrowBackUp, TbCurrencyDollarOff } from "react-icons/tb";
 function ProductPage() {
     const { ProductId } = useParams();
     const { arrAll, shopCart, setShopCart, shopFavor, setShopFavor } = useContext(GlobalContextData);
-    const { id, title, brand, price, description, thumbnail, discountPercentage, images, category } = arrAll.find(item => item.id === Number(ProductId)) || {};
+    const { id, title, brand, price, description, thumbnail, discountPercentage, images, category } = products.products.find(item => item.id === Number(ProductId)) || {};
 
     const ovj = { ...arrAll.find(item => item.id === Number(ProductId)) }
 

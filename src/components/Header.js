@@ -5,82 +5,97 @@ import { MdFavorite } from "react-icons/md";
 import { MdOutlineCategory } from "react-icons/md";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import GlobalContextData from "./GlobalContextData";
 
 function Header1() {
+    const { arrAll } = useContext(GlobalContextData);
+    let arrCategories = [...new Set(arrAll.map(({ category }) => category))];
+    arrCategories.unshift('Recommended');
+
     return (
-        <div
-            style={{ maxHeight: '20vh' }}
-            className="bg-secondary-subtle container-fluid"
-        >
-            <div className="container p-md-2 p-sm-1 p-0">
-                <div className="logo icon fs-2 text-success">
-                    Online<span className="text-primary">Store</span> <LiaStoreAltSolid className="text-danger" />
-                </div>
-                <nav className="d-flex flex-wrap justify-content-around align-items-center align-content-center fs-3 ">
-                    <div className="icon icon-link icon-link-hover">
-                        <NavLink
-                            to="."
-                            className={({ isActive, isPending }) =>
-                                isPending ? "pending" : isActive ? "rounded-5 border-5 shadow-lg text-bg-dark p-1 border-danger" : ""
-                            }
-                        >
-                            <FcHome />
-                        </NavLink>
+        <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+            <div className="container-fluid justify-content-start">
+                <Link className="navbar-brand" to=".">
+                    <div className="logo icon fs-2 text-success">
+                        Online<span className="text-primary">Store</span> <LiaStoreAltSolid className="text-danger" />
                     </div>
-                    <div className="icon icon-link icon-link-hover">
-                        <div className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <MdOutlineCategory />
-                            </a>
-                            <ul
-                                onChange={e => console.log(e.targetget.value)}
-                                className="dropdown-menu p-1 text-bg-dark"
+                </Link>
+                {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button> */}
+                <div className="me-auto" id="navbarSupportedContent">
+                    <ul className="nav nav-tabs">
+                        <li className="nav-item">
+                            <div>
+                                <button
+                                    className="btn"
+                                    type="button"
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasExample"
+                                    aria-controls="offcanvasExample"
+                                >
+                                    <span className="navbar-toggler-icon"></span>
+                                </button>
+
+                                <div className="offcanvas offcanvas-start" data-bs-scroll="true" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                                    <div className="offcanvas-header">
+                                        <h5 className="offcanvas-title" id="offcanvasExampleLabel">Categories</h5>
+                                        <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                    </div>
+                                    <div className="offcanvas-body p-0">
+                                        <div className="list-group">
+                                            <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "list-group-item list-group-item-action active border-0 border-bottom" : "list-group-item list-group-item-action border-0 border-bottom"} to="Products" end>All</NavLink>
+                                            {
+                                                arrCategories.map((categorie, i) => <NavLink key={i} className={({ isActive, isPending }) => isPending ? "" : isActive ? "list-group-item list-group-item-action active border-0 border-bottom" : "list-group-item list-group-item-action border-0 border-bottom"} to={`Products/${categorie}`}>{categorie}</NavLink>)
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink
+                                to="."
+                                aria-current="page"
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "pending" : isActive ? "nav-link active" : "nav-link"
+                                }
                             >
-                                <li value={''}>                 <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products" end>All</NavLink></li>
-                                <li value={'smartphones'}>      <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/smartphones">smartphones</NavLink></li>
-                                <li value={'laptops'}>          <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/laptops">laptops</NavLink></li>
-                                <li value={'fragrances'}>       <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/fragrances">fragrances</NavLink></li>
-                                <li value={'skincare'}>         <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/skincare">skincare</NavLink></li>
-                                <li value={'groceries'}>        <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/groceries">groceries</NavLink></li>
-                                <li value={'home-decoration'}>  <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/home-decoration">home-decoration</NavLink></li>
-                                <li value={'furniture'}>        <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/furniture">furniture</NavLink></li>
-                                <li value={'tops'}>             <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/tops">tops</NavLink></li>
-                                <li value={'womens-dresses'}>   <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/womens-dresses">womens-dresses</NavLink></li>
-                                <li value={'womens-watches'}>   <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/womens-watches">womens-watches</NavLink></li>
-                                <li value={'womens-bags'}>      <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/womens-bags">womens-bags</NavLink></li>
-                                <li value={'womens-jewellery'}> <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/womens-jewellery">womens-jewellery</NavLink></li>
-                                <li value={'mens-shirts'}>      <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/mens-shirts">mens-shirts</NavLink></li>
-                                <li value={'sunglasses'}>       <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/sunglasses">sunglasses</NavLink></li>
-                                <li value={'automotive'}>       <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/automotive">automotive</NavLink></li>
-                                <li value={'motorcycle'}>       <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/motorcycle">motorcycle</NavLink></li>
-                                <li value={'lighting'}>         <NavLink className={({ isActive, isPending }) => isPending ? "" : isActive ? "text-warning" : "text-white link-offset-1-hover link-opacity-75-hover link-underline-opacity-50-hover hover"} to="Products/lighting">lighting</NavLink></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="icon icon-link icon-link-hover">
-                        <NavLink
-                            to="/Cart"
-                            className={({ isActive, isPending }) =>
-                                isPending ? "pending" : isActive ? "rounded-5 border-5 shadow-lg text-bg-dark p-1 border-danger" : "text-primary"
-                            }
-                        >
-                            <FaOpencart />
-                        </NavLink>
-                    </div>
-                    <div className="icon icon-link icon-link-hover">
-                        <NavLink
-                            to="/Favorit"
-                            className={({ isActive, isPending }) =>
-                                isPending ? "pending" : isActive ? "rounded-5 border-5 shadow-lg text-bg-dark p-1 border-danger" : "text-danger"
-                            }
-                        >
-                            <MdFavorite />
-                        </NavLink>
-                    </div>
-                </nav>
+                                <FcHome />
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink
+                                to="/Cart"
+                                aria-current="page"
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "pending" : isActive ? "nav-link active text-info" : "nav-link text-warning"
+                                }
+                            >
+                                <FaOpencart />
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink
+                                to="/Favorit"
+                                aria-current="page"
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "pending" : isActive ? "nav-link active text-danger" : "nav-link text-danger-emphasis"
+                                }
+                            >
+                                <MdFavorite />
+                            </NavLink>
+                        </li>
+                    </ul>
+                </div>
+                {/* <form className="d-flex" role="search">
+                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <button className="btn btn-outline-success" type="submit">Search</button>
+                    </form> */}
             </div>
-        </div>
+        </nav>
     )
 }
 

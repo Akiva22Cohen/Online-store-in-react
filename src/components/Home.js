@@ -1,12 +1,15 @@
 import { useContext } from "react";
 import GlobalContextData from "./GlobalContextData";
 import { Link } from "react-router-dom";
+import SimpleCard from "./SimpleCard";
 
 function Home() {
     const { arrAll } = useContext(GlobalContextData);
-
+    const latestProducts = [{ ...arrAll[0] }, { ...arrAll[6] }, { ...arrAll[11] }, { ...arrAll[16] }];
     return (
-        <div style={{ maxHeight: '70vh' }} className="overflow-auto">
+        <div
+            style={{ maxHeight: '80vh' }}
+            className="overflow-auto">
             <div
                 style={{ height: '40vh' }}
                 id="carouselExampleAutoplaying" className="carousel slide mx-auto mt-2 col-12 col-sm-10 col-md-8" data-bs-ride="carousel"
@@ -25,8 +28,8 @@ function Home() {
                     {
                         arrAll.slice(0, arrAll.length - 1).map(({ thumbnail, title, description }, i) => {
                             return (
-                                <div key={i} className={`carousel-item w-100 h-100 ${i == 0 && 'active'}`}>
-                                    <img src={thumbnail} className="d-block w-100 h-100" alt={arrAll[0].title} />
+                                <div key={i} className={`carousel-item w-100 h-100 ${i === 0 && 'active'}`}>
+                                    <img src={thumbnail} className="d-block w-100 h-100" alt={arrAll[i].title} />
                                     <div className="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded shadow p-1">
                                         <h5>{title}</h5>
                                         <p>{description}</p>
@@ -45,35 +48,23 @@ function Home() {
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
-            {
-                (arrAll[0]) &&
-                <div className="d-flex flex-wrap justify-content-center align-content-center align-items-center m-1 border shadow rounded p-2 bg-body-tertiary">
-                    <div className="position-relative border shadow rounded p-2 m-1 bg-dark round-img-container">
-                        <Link to="Products/laptops">
-                            <img className="round-img" src="https://i.pinimg.com/564x/09/06/77/090677774cefa9cf65a41252d9c2e1d3.jpg" alt="Laptops" />
-                        </Link>
-                        <p className="position-absolute top-50 text-info fw-bolder z-1 fs-5">Laptops</p>
+            <div className="mt-3">
+                <h3>Latest products:</h3>
+                {
+                    (arrAll[0]) &&
+                    <div className="d-flex flex-wrap justify-content-center">
+                        {
+                            latestProducts.map(item => {
+                                return (
+                                    <Link key={item.id} to={`Product/${item.id}`}>
+                                        <SimpleCard {...item} />
+                                    </Link>
+                                );
+                            })
+                        }
                     </div>
-                    <div className="position-relative border shadow rounded p-2 m-1 bg-dark round-img-container">
-                        <Link to="Products/mens-shirts">
-                            <img className="round-img" src="https://i.pinimg.com/564x/9b/a1/ec/9ba1ecd61798f8412ecacdbcbeb550e8.jpg" alt="Men's shirts" />
-                        </Link>
-                        <p className="position-absolute top-50 text-warning fw-bolder z-1 fs-5">Men's shirts</p>
-                    </div>
-                    <div className="position-relative border shadow rounded p-2 m-1 bg-dark round-img-container">
-                        <Link to={`Product/${arrAll[31].id}`}>
-                            <img className="round-img" src={arrAll[31].thumbnail} alt={arrAll[31].title} />
-                        </Link>
-                        <p className="position-absolute top-50 text-danger fw-bolder z-1 fs-5">{arrAll[31].title}</p>
-                    </div>
-                    <div className="position-relative border shadow rounded p-2 m-1 bg-dark round-img-container">
-                        <Link to={`Product/${arrAll[40].id}`}>
-                            <img className="round-img" src={arrAll[40].thumbnail} alt={arrAll[40].title} />
-                        </Link>
-                        <p className="position-absolute top-50 text-success fw-bolder z-1 fs-5">{arrAll[40].title}</p>
-                    </div>
-                </div>
-            }
+                }
+            </div>
         </div >
     )
 }
