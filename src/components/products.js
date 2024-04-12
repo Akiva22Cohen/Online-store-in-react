@@ -21,7 +21,7 @@ function Products() {
     return (
         <div
             className="overflow-auto"
-            style={{ maxHeight: '70vh' }}
+            // style={{ maxHeight: '70vh' }}
         >
             <h2 className="text-center">{f && category}</h2>
             <div

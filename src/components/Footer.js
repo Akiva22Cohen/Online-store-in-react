@@ -4,7 +4,7 @@ function Footer() {
     return (
         <div
             style={{ height: '10vh' }}
-            className="bg-secondary-subtle container-fluid position-absolute bottom-0"
+            className="bg-secondary-subtle container-fluid"
         >
             <div className="container">
                 <div className="d-flex justify-content-center align-items-center align-content-center">

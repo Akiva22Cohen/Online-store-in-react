@@ -8,7 +8,7 @@ function Favorit() {
     return (
         <div
             className="overflow-auto"
-            style={{ maxHeight: '70vh' }}
+        // style={{ maxHeight: '70vh' }}
         >
             <h2 className="text-center">Favorites</h2>
             {
