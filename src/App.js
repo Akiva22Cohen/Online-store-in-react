@@ -10,12 +10,16 @@ import ProductPage from './components/ProductPage';
 import Favorit from './components/Favorit';
 import Cart from './components/Cart';
 import NoPage from './components/NoPage';
+import Connection from './components/Connection';
+import Profile from './components/Profile';
 
 function App() {
   const [arrAll, setArrAll] = useState([]);
 
   const [shopCart, setShopCart] = useState([]);
   const [shopFavor, setShopFavor] = useState([]);
+
+  const [user, setUser] = useState();
 
   useEffect(() => {
     const temp = localStorage.getItem('shopCart');
@@ -37,6 +41,18 @@ function App() {
 
     if (shopFavor.length > 0)
       localStorage.setItem('shopFavor', JSON.stringify(shopFavor));
+
+    if (user) {
+      const orders = JSON.parse(localStorage.getItem('orders'));
+      const newOrder = orders.map(order => {
+        if (order.customerId === user.id) {
+          order.arrCart = shopCart;
+          order.arrFavor = shopFavor;
+        }
+        return order;
+      });
+      localStorage.setItem('orders', JSON.stringify(newOrder));
+    }
   }, [shopCart, shopFavor]);
 
   useEffect(() => {
@@ -51,10 +67,14 @@ function App() {
 
   return (
     <BrowserRouter>
-      <GlobalContextData.Provider value={{ arrAll, shopCart, setShopCart, shopFavor, setShopFavor }}>
+      <GlobalContextData.Provider value={{ arrAll, shopCart, setShopCart, shopFavor, setShopFavor, user, setUser }}>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+
+            <Route path='connection' element={<Connection />} />
+
+            <Route path='Profile' element={<Profile />} />
 
             <Route path="Products" element={<Products />}>
               <Route path=":category" element={<Products />} />

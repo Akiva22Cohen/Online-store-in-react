@@ -4,13 +4,11 @@ import GlobalContextData from "./GlobalContextData";
 
 import { LiaStoreAltSolid } from "react-icons/lia";
 import { FcHome } from "react-icons/fc";
-import { FaOpencart, FaRegUserCircle } from "react-icons/fa";
+import { FaOpencart, FaRegUserCircle, FaUserCircle } from "react-icons/fa";
 import { MdFavorite } from "react-icons/md";
-import { MdOutlineCategory } from "react-icons/md";
-import { IoMdArrowRoundBack } from "react-icons/io";
 
 function Header1() {
-    const { arrAll } = useContext(GlobalContextData);
+    const { arrAll, user, setUser } = useContext(GlobalContextData);
 
     let arrCategories = [...new Set(arrAll.map(({ category }) => category))];
     arrCategories.unshift('Recommended');
@@ -91,11 +89,14 @@ function Header1() {
                         </li>
                     </ul>
                 </div>
-                <button
+                <Link
+                    to={user ? '/profile' : '/connection'}
                     className="btn text-bg-dark"
                 >
-                    <FaRegUserCircle />
-                </button>
+                    {!user && <FaRegUserCircle />}
+                    {user && <span className="m-1">{user.name.split(' ')[0]}</span>}
+                    {user && <FaUserCircle />}
+                </Link>
                 {/* <form className="d-flex" role="search">
                     <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                     <button className="btn btn-outline-success" type="submit">Search</button>

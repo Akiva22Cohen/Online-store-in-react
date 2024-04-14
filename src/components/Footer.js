@@ -3,7 +3,7 @@ import { FcCopyright } from "react-icons/fc";
 function Footer() {
     return (
         <div
-            style={{ height: '10vh' }}
+            // style={{ height: '10vh' }}
             className="bg-secondary-subtle container-fluid"
         >
             <div className="container">
