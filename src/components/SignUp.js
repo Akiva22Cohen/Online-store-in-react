@@ -15,7 +15,8 @@ function SignUp() {
             id: Date.now(),
             email: data.email,
             name: data.name,
-            password: data.password
+            password: data.password,
+            logIn: true
         };
         const userExist = usersData.find(({ email }) => email === data.email);
         if (!userExist) {

@@ -16,9 +16,18 @@ export default function Profile() {
             <button
                 className='btn btn-danger'
                 onClick={() => {
+                    const usersData = JSON.parse(localStorage.getItem('users')) || [];
+                    const newUsersData = usersData.map(item => {
+                        if (item.id === user.id)
+                            item.logIn = false;
+                        return item;
+                    });
+                    localStorage.setItem('users', JSON.stringify(newUsersData));
+                    setUser();
                     setShopCart([]);
                     setShopFavor([]);
-                    setUser();
+                    localStorage.setItem('shopCart', JSON.stringify([]));
+                    localStorage.setItem('shopFavor', JSON.stringify([]));
                     navigate('/');
                 }}
             >

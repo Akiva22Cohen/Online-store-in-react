@@ -24,6 +24,11 @@ function App() {
   useEffect(() => {
     const temp = localStorage.getItem('shopCart');
     const temp1 = localStorage.getItem('shopFavor');
+    const usersData = JSON.parse(localStorage.getItem('users')) || [];
+    const connectUser = usersData.find(({ logIn }) => logIn);
+
+    if (connectUser)
+      setUser(connectUser);
 
     if (temp !== undefined && temp) {
       setShopCart(JSON.parse(temp));

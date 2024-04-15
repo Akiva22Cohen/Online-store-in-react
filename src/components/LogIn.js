@@ -18,25 +18,42 @@ function Login() {
         const user = usersData.find(({ email }) => email === data.email);
         if (user) { // getItem can return actual value or null
             if (user.password === data.password) {
+                user.logIn = true;
                 setUser(user);
+                const newUsersData = usersData.map(item => {
+                    if (item.id === user.id)
+                        item.logIn = true;
+                    return item;
+                });
+                localStorage.setItem('users', JSON.stringify(newUsersData));
                 console.log(user.name + " You Are Successfully Logged In");
 
                 const orders = JSON.parse(localStorage.getItem('orders'));
                 const newOrder = {
                     customerId: user.id,
                     arrCart: shopCart,
-                    arrFavor: shopFavor
+                    arrFavor: shopFavor,
                 };
                 if (orders) {
                     const order = orders.find(({ customerId }) => customerId === user.id);
                     if (order && order.arrCart instanceof Array && order.arrFavor instanceof Array) {
                         const { arrCart, arrFavor } = order;
-                        if (shopCart.length > 0)
-                            arrCart.push(shopCart.filter(item => !arrCart.find(el => item.id === el.id)));
-                        if (shopFavor.length > 0)
-                            arrFavor.push(shopFavor.filter(item => !arrFavor.find(el => item.id === el.id)));
-                        setShopCart(arrCart);
-                        setShopFavor(arrFavor);
+                        const newArrCart = shopCart.reduce((acc, obj) => {
+                            if (!acc.some(item => item.id === obj.id)) {
+                                acc.push(obj);
+                            }
+                            return acc;
+                        }, [...arrCart]);
+
+                        const newArrFavor = shopFavor.reduce((acc, obj) => {
+                            if (!acc.some(item => item.id === obj.id)) {
+                                acc.push(obj);
+                            }
+                            return acc;
+                        }, [...arrFavor]);
+
+                        setShopCart(newArrCart);
+                        setShopFavor(newArrFavor);
                     } else {
                         orders.push(newOrder);
                         localStorage.setItem('orders', JSON.stringify(orders));
