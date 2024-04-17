@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import GlobalContextData from "./GlobalContextData";
 
-function SignUp() {
+function SignUp(props) {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const navigate = useNavigate();
-    const { user, setUser, shopCart, setShopCart, shopFavor, setShopFavor } = useContext(GlobalContextData);
+    const { user: userSystem, setUser, shopCart, setShopCart, shopFavor, setShopFavor } = useContext(GlobalContextData);
 
     const onSubmit = (data) => {
         const usersData = JSON.parse(localStorage.getItem('users')) || [];
@@ -19,7 +19,7 @@ function SignUp() {
             logIn: true
         };
         const userExist = usersData.find(({ email }) => email === data.email);
-        if (!userExist) {
+        if (!userExist && !userSystem) {
             usersData.push(user);
             localStorage.setItem('users', JSON.stringify(usersData));
             setUser(user);
@@ -31,20 +31,36 @@ function SignUp() {
                 arrFavor: shopFavor
             };
             orders.push(order);
-            localStorage.setItem('orders', JSON.stringify(order));
+            localStorage.setItem('orders', JSON.stringify(orders));
 
             navigate('/');
-        } else {
-            alert('Email already exists');
+        } else if (userSystem) {
+            const temp = usersData.find(item => item.id === userSystem.id);
+            if (temp) {
+                user.id = userSystem.id;
+                localStorage.setItem('users', JSON.stringify(usersData.map(item => {
+                    if (item.id === user.id)
+                        return user;
+                    return item;
+                })));
+                setUser(user);
+                props.setEdit(!props.edit);
+                // alert('Email already exists');
+            }
         }
     };
 
     return (
         <div className="d-flex flex-column justify-content-center align-items-center col-10 col-sm-8 col-md-4 mx-auto">
-            <p className="title mb-0 w-100">Registration Form</p>
+            <p className="title mb-0 w-100">{
+                !userSystem ?
+                    'Registration Form' :
+                    'Edit profile'
+            }</p>
 
             <form className="form-style w-100" onSubmit={handleSubmit(onSubmit)}>
                 <input
+                    defaultValue={userSystem && userSystem.name}
                     placeholder="Name"
                     className="form-input"
                     type="text"
@@ -53,6 +69,7 @@ function SignUp() {
                 {errors.name && <span style={{ color: "red" }}>
                     *Name* is mandatory </span>}
                 <input
+                    defaultValue={userSystem && userSystem.email}
                     placeholder="Email"
                     className="form-input"
                     type="email"
@@ -61,6 +78,7 @@ function SignUp() {
                 {errors.email && <span style={{ color: "red" }}>
                     *Email* is mandatory </span>}
                 <input
+                    defaultValue={userSystem && userSystem.password}
                     placeholder="Password"
                     className="form-input"
                     type="password"
