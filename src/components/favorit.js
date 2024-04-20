@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import GlobalContextData from "./GlobalContextData";
-import Product from "./Product";
+import Product from "./product";
 
 function Favorit() {
     const { shopFavor } = useContext(GlobalContextData);

@@ -8,7 +8,7 @@ function Home() {
     const latestProducts = [{ ...arrAll[0] }, { ...arrAll[6] }, { ...arrAll[11] }, { ...arrAll[16] }];
     return (
         <div
-            style={{ maxHeight: '80vh' }}
+            // style={{ maxHeight: '80vh' }}
             className="overflow-auto">
             <div
                 style={{ height: '40vh' }}

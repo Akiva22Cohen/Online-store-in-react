@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import GlobalContextData from "./GlobalContextData";
-import CartCard from "./CartCard";
+import CartCard from "./cartCard";
 
 function Cart() {
     const { shopCart } = useContext(GlobalContextData);

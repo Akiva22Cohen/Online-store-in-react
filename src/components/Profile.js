@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { LiaUserEditSolid } from "react-icons/lia";
 import { FiUserX } from "react-icons/fi";
 import SignUp from './SignUp';
+import ImageDisplay from './ImageDisplay';
 
 export default function Profile() {
     const { user, setUser, shopCart, setShopCart, shopFavor, setShopFavor } = useContext(GlobalContextData);
@@ -36,6 +37,9 @@ export default function Profile() {
 
     return (
         <div>
+            <div className='mt-2'>
+                <ImageDisplay />
+            </div>
             {
                 edit ?
                     <div className='my-3'>

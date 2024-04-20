@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 
 import GlobalContextData from "./GlobalContextData";
-import Product from "./Product";
+import Product from "./product";
 import NoPage from "./NoPage";
 
 function Products() {
