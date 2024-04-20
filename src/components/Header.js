@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import GlobalContextData from "./GlobalContextData";
+import '../UserProfile.css';
 
 import { LiaStoreAltSolid } from "react-icons/lia";
 import { FcHome } from "react-icons/fc";
@@ -8,7 +9,7 @@ import { FaOpencart, FaRegUserCircle, FaUserCircle } from "react-icons/fa";
 import { MdFavorite } from "react-icons/md";
 
 function Header1() {
-    const { arrAll, user, setUser } = useContext(GlobalContextData);
+    const { arrAll, user, setUser, selectedFile } = useContext(GlobalContextData);
 
     let arrCategories = [...new Set(arrAll.map(({ category }) => category))];
     arrCategories.unshift('Recommended');
@@ -95,7 +96,13 @@ function Header1() {
                 >
                     {!user && <FaRegUserCircle />}
                     {user && <span className="m-1">{user.name.split(' ')[0]}</span>}
-                    {user && <FaUserCircle />}
+                    {user && !selectedFile && <FaUserCircle />}
+                    {
+                        selectedFile &&
+                        <div className="user-profile2">
+                            <img src={selectedFile} alt="תמונת פרופיל" className="profile-picture2" />
+                        </div>
+                    }
                 </Link>
                 {/* <form className="d-flex" role="search">
                     <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />

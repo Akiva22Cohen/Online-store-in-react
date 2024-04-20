@@ -20,6 +20,7 @@ function App() {
   const [shopFavor, setShopFavor] = useState([]);
 
   const [user, setUser] = useState();
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     const temp = localStorage.getItem('shopCart');
@@ -72,7 +73,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <GlobalContextData.Provider value={{ arrAll, shopCart, setShopCart, shopFavor, setShopFavor, user, setUser }}>
+      <GlobalContextData.Provider value={{ arrAll, shopCart, setShopCart, shopFavor, setShopFavor, user, setUser, selectedFile, setSelectedFile }}>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />

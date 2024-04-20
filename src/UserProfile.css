@@ -35,3 +35,31 @@
     opacity: 1;
     /* שקיפות מלאה בעת ריחוף */
 }
+
+.user-profile2 {
+    width: 40px;
+    /* גודל התחלתי */
+    height: 40px;
+    /* גודל התחלתי */
+    border-radius: 50%;
+    /* צורה עגולה */
+    overflow: hidden;
+    /* חיתוך תמונה במקרה של גלישה */
+    background-color: #ccc;
+    /* צבע רקע אחיד */
+    display: inline-block;
+    /* הצגה בשורה אחת */
+    vertical-align: middle;
+    /* יישור אנכי במרכז */
+    margin-right: 10px;
+    /* מרווח מימין */
+}
+
+.profile-picture2 {
+    width: 100%;
+    /* התאמת גודל התמונה למיכל */
+    height: 100%;
+    /* התאמת גודל התמונה למיכל */
+    object-fit: cover;
+    /* התאמת גודל התמונה תוך שמירה על יחס רוחב-גובה */
+}

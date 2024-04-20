@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FcEditImage } from "react-icons/fc";
+import GlobalContextData from './GlobalContextData';
 import '../UserProfile.css';
 
 
 const ImageDisplay = () => {
-    const [selectedFile, setSelectedFile] = useState(null);
+    const { selectedFile, setSelectedFile } = useContext(GlobalContextData);;
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
